@@ -15,7 +15,6 @@ int gunCamLoop(cv::VideoCapture gunCamera)
             writeFrame(convert888MatrixTo565Array(frame), 1);
         }
         else
-            continue;
-        // std::cout << "Error! Did not find gun frame!";
+            std::cout << "Error! Did not find gun frame!";
     }
 }
