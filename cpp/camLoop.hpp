@@ -1,8 +1,9 @@
 #include "convert888MatrixTo565Array.hpp"
+#include "getBufferFileDescriptor.hpp"
 #include "writeFrame.hpp"
 #include <iostream>
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 
-int driveCamLoop(cv::VideoCapture driveCamera);
-int gunCamLoop(cv::VideoCapture gunCamera);
+void driveCamLoop(cv::VideoCapture driveCamera);
+void gunCamLoop(cv::VideoCapture gunCamera);

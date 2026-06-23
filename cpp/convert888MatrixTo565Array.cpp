@@ -4,7 +4,7 @@
 
 #include "convert888MatrixTo565Array.hpp"
 
-std::array<std::array<uint16_t, 320>, 240> convert888MatrixTo565Array(const cv::Mat ARRAY_888)
+std::array<std::array<uint16_t, 320>, 240> convert888MatrixTo565Array(const cv::Mat &ARRAY_888)
 {
     // Make a blank array where I will place my 16bit integers
     std::array<std::array<uint16_t, 320>, 240> array565;
