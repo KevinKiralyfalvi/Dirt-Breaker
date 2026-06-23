@@ -17,7 +17,7 @@ void driveCamLoop(cv::VideoCapture &driveCamera)
     std::chrono::milliseconds duration;
 
     // Get the variable screen info and the fixed screen info
-    fb = getBufferFileDescriptor(1);
+    fb = getBufferFileDescriptor(0);
     ioctl(fb, FBIOGET_FSCREENINFO, &finfo);
 
     // Get the pointer to the buffer to more easily interact with it in my program
