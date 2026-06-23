@@ -4,7 +4,7 @@
 
 #include "getDevicePath.hpp"
 
-std::string getDevicePath(std::string &videoDevices, std::string code)
+std::string getDevicePath(const std::string &videoDevices, std::string code)
 {
     int codeIndex;
     int deviceIDIndex;

@@ -1,4 +1,4 @@
 #pragma once
 #include <string>
 
-std::string getDevicePath(std::string &videoDevices, std::string code);
+std::string getDevicePath(const std::string &videoDevices, std::string code);
