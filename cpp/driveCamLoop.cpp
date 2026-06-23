@@ -12,9 +12,12 @@ void driveCamLoop(cv::VideoCapture &driveCamera)
     int fb;
     fb_fix_screeninfo finfo;
     uint8_t *buffer;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end;
+    std::chrono::milliseconds duration;
 
     // Get the variable screen info and the fixed screen info
-    fb = getBufferFileDescriptor(0);
+    fb = getBufferFileDescriptor(1);
     ioctl(fb, FBIOGET_FSCREENINFO, &finfo);
 
     // Get the pointer to the buffer to more easily interact with it in my program
@@ -28,6 +31,7 @@ void driveCamLoop(cv::VideoCapture &driveCamera)
 
     while (true)
     {
+        start = std::chrono::high_resolution_clock::now();
         if (driveCamera.grab())
         {
             driveCamera.retrieve(frame);
@@ -36,6 +40,10 @@ void driveCamLoop(cv::VideoCapture &driveCamera)
             writeFrame(convertedFrame, buffer, finfo.line_length);
         }
         else
-            std::cout << "Error! Did not find drive frame!";
+            std::cout << "Error! Did not find drive frame!" << std::endl;
+
+        end = std::chrono::high_resolution_clock::now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        std::cout << "Drive camera took " << duration.count() << " Milliseconds" << std::endl;
     }
 }

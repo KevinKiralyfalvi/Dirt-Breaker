@@ -12,9 +12,12 @@ void gunCamLoop(cv::VideoCapture &gunCamera)
     int fb;
     fb_fix_screeninfo finfo;
     uint8_t *buffer;
+    std::chrono::time_point<std::chrono::high_resolution_clock> start;
+    std::chrono::time_point<std::chrono::high_resolution_clock> end;
+    std::chrono::milliseconds duration;
 
     // Get the variable screen info and the fixed screen info
-    fb = getBufferFileDescriptor(1);
+    fb = getBufferFileDescriptor(0);
     ioctl(fb, FBIOGET_FSCREENINFO, &finfo);
 
     // Get the pointer to the buffer to more easily interact with it in my program
@@ -28,6 +31,7 @@ void gunCamLoop(cv::VideoCapture &gunCamera)
 
     while (true)
     {
+        start = std::chrono::high_resolution_clock::now();
         if (gunCamera.grab())
         {
             gunCamera.retrieve(frame);
@@ -36,6 +40,9 @@ void gunCamLoop(cv::VideoCapture &gunCamera)
             writeFrame(convertedFrame, buffer, finfo.line_length);
         }
         else
-            std::cout << "Error! Did not find gun frame!";
+            std::cout << "Error! Did not find gun frame!" << std::endl;
+        end = std::chrono::high_resolution_clock::now();
+        duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+        std::cout << "Gun camera took " << duration.count() << " Milliseconds" << std::endl;
     }
 }

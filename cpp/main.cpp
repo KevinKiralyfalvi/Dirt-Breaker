@@ -1,5 +1,4 @@
 #include "camLoop.hpp"
-#include "convert888MatrixTo565Array.hpp"
 #include "getDevicePath.hpp"
 #include "getVideoDevices.hpp"
 #include "scale565MatrixTo565Array.hpp"
@@ -15,13 +14,11 @@ int main()
 {
     cv::VideoCapture driveCamera;
     cv::VideoCapture gunCamera;
-    cv::Mat driveFrame;
-    cv::Mat gunFrame;
-    bool gotDrive;
-    bool gotGun;
     //  cv::VideoCapture thermalCamera;
 
     driveCamera.open(getDevicePath(videoDevices, "046d:0825"), cv::CAP_V4L2);
+    driveCamera.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+    driveCamera.set(cv::CAP_PROP_FPS, 30);
     driveCamera.set(cv::CAP_PROP_FRAME_HEIGHT, 240);
     driveCamera.set(cv::CAP_PROP_FRAME_HEIGHT, 320);
     driveCamera.set(cv::CAP_PROP_BRIGHTNESS, 64);
@@ -33,10 +30,12 @@ int main()
     driveCamera.set(cv::CAP_PROP_BUFFERSIZE, 1);
 
     gunCamera.open(getDevicePath(videoDevices, "HD USB Camera"), cv::CAP_V4L2);
+    gunCamera.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
+    gunCamera.set(cv::CAP_PROP_FPS, 30);
     gunCamera.set(cv::CAP_PROP_FRAME_HEIGHT, 240);
     gunCamera.set(cv::CAP_PROP_FRAME_HEIGHT, 320);
-    gunCamera.set(cv::CAP_PROP_BRIGHTNESS, 64);
-    gunCamera.set(cv::CAP_PROP_CONTRAST, 32);
+    gunCamera.set(cv::CAP_PROP_BRIGHTNESS, 32);
+    gunCamera.set(cv::CAP_PROP_CONTRAST, 64);
     gunCamera.set(cv::CAP_PROP_SATURATION, 80);
     gunCamera.set(cv::CAP_PROP_GAIN, 0);
     gunCamera.set(cv::CAP_PROP_SHARPNESS, 6);
@@ -44,8 +43,8 @@ int main()
     gunCamera.set(cv::CAP_PROP_BUFFERSIZE, 1);
     // thermalCamera.open(getDeviceID(videoDevices, "fw:v1.3.0"));
 
-    std::thread driveThread(driveCamLoop, std::ref(driveCamera));
     std::thread gunThread(gunCamLoop, std::ref(gunCamera));
+    std::thread driveThread(driveCamLoop, std::ref(driveCamera));
 
     // Keep the main thread alive
     while (true)
