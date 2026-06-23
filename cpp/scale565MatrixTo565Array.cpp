@@ -4,9 +4,8 @@
 
 #include "scale565MatrixTo565Array.hpp"
 
-std::array<std::array<uint16_t, 320>, 240> scale565MatrixTo565Array(cv::Mat const MATRIX_565)
+void scale565MatrixTo565Array(cv::Mat const &MATRIX_565, std::array<std::array<uint16_t, 320>, 240> &output)
 {
-    std::array<std::array<uint16_t, 320>, 240> frame;
     uint16_t pixel;
     int scaledXIndex;
     int scaledYIndex;
@@ -22,12 +21,10 @@ std::array<std::array<uint16_t, 320>, 240> scale565MatrixTo565Array(cv::Mat cons
             scaledYIndex = y * 2;
             pixel = MATRIX_565.at<uint16_t>(y, x);
 
-            frame[scaledYIndex][scaledXIndex] = pixel;
-            frame[scaledYIndex + 1][scaledXIndex] = pixel;
-            frame[scaledYIndex][scaledXIndex + 1] = pixel;
-            frame[scaledYIndex + 1][scaledXIndex + 1] = pixel;
+            output[scaledYIndex][scaledXIndex] = pixel;
+            output[scaledYIndex + 1][scaledXIndex] = pixel;
+            output[scaledYIndex][scaledXIndex + 1] = pixel;
+            output[scaledYIndex + 1][scaledXIndex + 1] = pixel;
         }
     }
-
-    return frame;
 }

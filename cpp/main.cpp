@@ -45,7 +45,7 @@ int main()
     // thermalCamera.open(getDeviceID(videoDevices, "fw:v1.3.0"));
 
     std::thread driveThread(driveCamLoop, driveCamera);
-    std::thread gunThread(gunCamLoop, gunCamera);
+    // std::thread gunThread(gunCamLoop, gunCamera);
 
     // Keep the main thread alive
     while (true)
