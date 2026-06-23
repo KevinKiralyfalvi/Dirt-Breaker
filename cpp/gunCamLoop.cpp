@@ -3,10 +3,12 @@
 // December 7th, 2025
 
 #include "camLoop.hpp"
+#include "convert888MatrixTo565Array.hpp"
 
 void gunCamLoop(cv::VideoCapture gunCamera)
 {
     cv::Mat frame;
+    std::array<std::array<uint16_t, 320>, 240> convertedFrame;
     int fb;
     fb_fix_screeninfo finfo;
     uint8_t *buffer;
@@ -30,7 +32,8 @@ void gunCamLoop(cv::VideoCapture gunCamera)
         {
             gunCamera.retrieve(frame);
             cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
-            writeFrame(convert888MatrixTo565Array(frame), buffer, finfo.line_length);
+            convert888MatrixTo565Array(frame, convertedFrame);
+            writeFrame(convertedFrame, buffer, finfo.line_length);
         }
         else
             std::cout << "Error! Did not find gun frame!";

@@ -4,10 +4,8 @@
 
 #include "convert888MatrixTo565Array.hpp"
 
-std::array<std::array<uint16_t, 320>, 240> convert888MatrixTo565Array(const cv::Mat &ARRAY_888)
+void convert888MatrixTo565Array(const cv::Mat &ARRAY_888, std::array<std::array<uint16_t, 320>, 240> &output)
 {
-    // Make a blank array where I will place my 16bit integers
-    std::array<std::array<uint16_t, 320>, 240> array565;
     // Type Vec3b means that it is a vector that has 3 channels, red, green, and blue, which are in the format RGB888
     cv::Vec3b pixel888;
 
@@ -42,9 +40,7 @@ std::array<std::array<uint16_t, 320>, 240> convert888MatrixTo565Array(const cv::
             b5 = b8 >> 3;
 
             // Squish all of them together and align them correctly
-            array565[y][x] = (r5 << 11 | g6 << 5 | b5);
+            output[y][x] = (r5 << 11 | g6 << 5 | b5);
         }
     }
-
-    return array565;
 }
