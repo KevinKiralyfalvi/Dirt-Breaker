@@ -5,5 +5,5 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/videoio.hpp>
 
-void driveCamLoop(cv::VideoCapture driveCamera);
-void gunCamLoop(cv::VideoCapture gunCamera);
+void driveCamLoop(cv::VideoCapture &driveCamera);
+void gunCamLoop(cv::VideoCapture &gunCamera);

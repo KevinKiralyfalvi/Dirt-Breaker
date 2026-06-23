@@ -5,7 +5,7 @@
 #include "camLoop.hpp"
 #include "convert888MatrixTo565Array.hpp"
 
-void driveCamLoop(cv::VideoCapture driveCamera)
+void driveCamLoop(cv::VideoCapture &driveCamera)
 {
     cv::Mat frame;
     std::array<std::array<uint16_t, 320>, 240> convertedFrame;

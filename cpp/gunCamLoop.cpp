@@ -1,11 +1,11 @@
 // Kevin Kiralyfalvi
-// Drive Camera Loop
+// Gun Camera Loop
 // December 7th, 2025
 
 #include "camLoop.hpp"
 #include "convert888MatrixTo565Array.hpp"
 
-void gunCamLoop(cv::VideoCapture gunCamera)
+void gunCamLoop(cv::VideoCapture &gunCamera)
 {
     cv::Mat frame;
     std::array<std::array<uint16_t, 320>, 240> convertedFrame;
@@ -23,7 +23,7 @@ void gunCamLoop(cv::VideoCapture gunCamera)
     // Protected read and right. Squish them together with bitwise or
     // MAP_SHARED means actually write to the memory instead of a virtual copy
     // fb is the file descriptor from earlier
-    // 0 is the offset. Don't offset, and start at the beginning
+    // 0 is the offset. Don't offset so start at the beginning
     buffer = (uint8_t *)mmap(0, finfo.smem_len, PROT_READ | PROT_WRITE, MAP_SHARED, fb, 0);
 
     while (true)
