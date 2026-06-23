@@ -44,8 +44,8 @@ int main()
     gunCamera.set(cv::CAP_PROP_BUFFERSIZE, 1);
     // thermalCamera.open(getDeviceID(videoDevices, "fw:v1.3.0"));
 
-    std::thread driveThread(driveCamLoop, driveCamera);
-    // std::thread gunThread(gunCamLoop, gunCamera);
+    std::thread driveThread(driveCamLoop, std::ref(driveCamera));
+    std::thread gunThread(gunCamLoop, std::ref(gunCamera));
 
     // Keep the main thread alive
     while (true)
