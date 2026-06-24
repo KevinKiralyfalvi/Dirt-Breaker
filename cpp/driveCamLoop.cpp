@@ -37,7 +37,7 @@ void driveCamLoop(cv::VideoCapture &driveCamera)
             driveCamera.retrieve(frame);
             cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
             convert888MatrixTo565Array(frame, convertedFrame);
-            writeFrame(convertedFrame, buffer, finfo.line_length);
+            writeFrame(convertedFrame, buffer);
         }
         else
             std::cout << "Error! Did not find drive frame!" << std::endl;

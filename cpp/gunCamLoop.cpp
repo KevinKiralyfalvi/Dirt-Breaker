@@ -37,7 +37,7 @@ void gunCamLoop(cv::VideoCapture &gunCamera)
             gunCamera.retrieve(frame);
             cv::cvtColor(frame, frame, cv::COLOR_BGR2RGB);
             convert888MatrixTo565Array(frame, convertedFrame);
-            writeFrame(convertedFrame, buffer, finfo.line_length);
+            writeFrame(convertedFrame, buffer);
         }
         else
             std::cout << "Error! Did not find gun frame!" << std::endl;

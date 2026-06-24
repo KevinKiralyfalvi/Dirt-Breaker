@@ -7,4 +7,4 @@
 #include <sys/mman.h>
 #include <unistd.h>
 
-void writeFrame(const std::array<std::array<uint16_t, 320>, 240> &frame, uint8_t *buffer, uint32_t line_length);
+void writeFrame(const std::array<std::array<uint16_t, 320>, 240> &frame, uint8_t *buffer);
