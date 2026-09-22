@@ -43,6 +43,7 @@ int main()
     gunCamera.set(cv::CAP_PROP_SHARPNESS, 6);
     gunCamera.set(cv::CAP_PROP_BACKLIGHT, 12);
     gunCamera.set(cv::CAP_PROP_BUFFERSIZE, 1);
+
     // thermalCamera.open(getDeviceID(videoDevices, "fw:v1.3.0"));
 
     std::thread driveThread(visibleCamLoop, std::ref(driveCamera), 0);
